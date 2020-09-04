@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: account-service
+
+# Server configs
+server:
+  port: 8091
+  ## Should be included to show message, if not error message will be empty
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# Application health and information management
+management:
+  info.git:
+    mode: full
+    enabled: true
+  endpoints.web.exposure.include: "*"
+  endpoint:
+    shutdown.enabled: true
+    health.show-details: always
+
+logging.level:
+  org:
+    springframework:
+      web: DEBUG
+    siriusxi:
+      blueharvest:
+        bank: DEBUG
+  web: DEBUG
+  root: INFO
