@@ -2,6 +2,13 @@ spring:
   application:
     name: customer-service
 
+  # Database configurations
+  datasource:
+    url: jdbc:h2:mem:customerDB
+  h2:
+    console:
+      enabled: true
+
 # Server configs
 server:
   port: 8090
@@ -17,7 +24,7 @@ management:
     enabled: true
   endpoints.web.exposure.include: "*"
   endpoint:
-    shutdown.enabled: true
+    shutdown.enabled: false
     health.show-details: always
 
 logging.level:
