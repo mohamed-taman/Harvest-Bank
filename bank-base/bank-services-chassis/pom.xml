@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.siriusxi.blueharvest.bank</groupId>
+        <artifactId>bank-build-chassis</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../bank-build-chassis/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>bank-services-chassis</artifactId>
+    <name>Bank Services Chassis</name>
+    <version>1.0-SNAPSHOT</version>
+    <description>Parent pom project for Building Harvest Bank μServices</description>
+    <packaging>pom</packaging>
+
+    <!-- General and common dependencies for all services and libraries -->
+    <dependencies>
+
+        <!-- Start - Store application business dependencies -->
+        <dependency>
+            <groupId>org.siriusxi.blueharvest.bank</groupId>
+            <artifactId>bank-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <!-- End - Store application business dependencies -->
+
+        <!-- Start - Development dependencies -->
+        <!-- Start - Developer utilities tools   -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <!-- End - Developer utilities tools -->
+        <!-- Start - Spring Configs processor   -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- End - Spring Configs processor   -->
+        <!-- Start - Spring tool to check the old keys to be migrated to new ones -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-properties-migrator</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- End - Spring tool to check the old keys to be migrated to new ones -->
+        <!-- Start - Providing some useful infos about the service through REST API -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- End - Providing some useful infos about the service through REST API -->
+        <!-- End - Development dependencies -->
+
+        <!-- Start - Typical spring web framework -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- End - Typical spring web framework -->
+
+        <!-- Start - H2 in-memory Database -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- End - H2 in-memory Database -->
+        <!-- Start - JPA tools -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <!-- Start - JPA tools -->
+
+        <!-- Start - Testing dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-runner</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- End - Testing dependencies -->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- Make final jar, a layered jar -->
+                    <layers>
+                        <enabled>true</enabled>
+                    </layers>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <!--
+                                To generate build information to be included via
+                                http(s)://<hostname>:<port>/actuator/info
+                             -->
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

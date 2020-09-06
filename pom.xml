@@ -47,10 +47,12 @@
         <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
 
-   <modules>
-        <module>bank-base</module>
+    <modules>
+        <module>bank-base/bank-build-chassis</module>
+        <module>bank-base/bank-services-chassis</module>
+        <module>bank-common</module>
         <module>bank-services/customer-service</module>
         <module>bank-services/account-service</module>
         <module>bank-services/transaction-service</module>
-  </modules>
+    </modules>
 </project>
