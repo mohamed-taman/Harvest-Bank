@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.siriusxi.blueharvest.bank</groupId>
+    <artifactId>Harvest-Bank-aggregator</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>Harvest Bank Aggregator</name>
+    <description>Aggregator pom project for all Harvest Bank μServices</description>
+    <packaging>pom</packaging>
+
+    <!-- Start - Harvest Bank Project Owner -->
+    <developers>
+        <developer>
+            <id>0001</id>
+            <name>Mohamed Taman</name>
+            <email>mohamed.taman@gmail.com</email>
+            <roles>
+                <role>
+                    Sr. Enterprise Architect
+                </role>
+                <role>
+                    Lead Software Architect
+                </role>
+            </roles>
+        </developer>
+    </developers>
+    <!-- End - Harvest Bank Project Owner -->
+    <!-- Start - Harvest Bank source repository -->
+    <scm>
+        <connection>https://github.com/mohamed-taman/Harvest-Bank.git</connection>
+        <developerConnection>git@github.com:mohamed-taman/Harvest-Bank.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+    <!-- End - Harvest Bank source repository -->
+    <!-- Start - Harvest Bank issue management -->
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/mohamed-taman/Harvest-Bank/projects/1</url>
+    </issueManagement>
+    <!-- End - Harvest Bank issue management -->
+
+    <properties>
+        <maven.install.skip>true</maven.install.skip>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+
+    <modules>
+        <module>bank-base/bank-build-chassis</module>
+        <module>bank-base/bank-services-chassis</module>
+        <module>bank-common</module>
+        <module>bank-services/customer-service</module>
+        <module>bank-services/account-service</module>
+        <module>bank-services/transaction-service</module>
+    </modules>
+</project>
