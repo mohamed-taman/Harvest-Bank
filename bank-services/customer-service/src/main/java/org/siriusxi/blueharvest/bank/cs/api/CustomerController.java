@@ -34,6 +34,7 @@ public class CustomerController {
   public void createAccount(@PathVariable int id,
                             @RequestBody AccountDTO account) {
     account.setCustomerId(id);
-    log.debug("createAccount: creates a new account {} for CustomerId: {}", account.toString(), id);
+    customerService.createCustomerAccount(account);
+    log.debug("createAccount: creates a new account {}", account);
   }
 }

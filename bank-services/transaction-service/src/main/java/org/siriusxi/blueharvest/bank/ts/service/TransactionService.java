@@ -13,24 +13,19 @@ import java.util.stream.StreamSupport;
 @Service
 public class TransactionService {
 
-    private final TransactionRepository transactionRepository;
-
     @Autowired
-    public TransactionService(TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
-    }
+    private TransactionRepository transactionRepository;
+
 
     public List<Transaction> getTransactions(int accountId) {
-        return StreamSupport
-                .stream(transactionRepository.findByAccountId(accountId).spliterator(),
-                        false)
+        return transactionRepository.findByAccountId(accountId)
+                .stream()
                 .map(entity -> new Transaction(accountId, entity.getType()
                         ,entity.getAmount()))
                 .collect(Collectors.toList());
     }
 
     public void createTransaction(TransactionEntity entity){
-
         transactionRepository.save(entity);
     }
 }

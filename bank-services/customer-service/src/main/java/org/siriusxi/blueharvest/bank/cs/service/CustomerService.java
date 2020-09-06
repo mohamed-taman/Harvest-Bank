@@ -2,6 +2,7 @@ package org.siriusxi.blueharvest.bank.cs.service;
 
 import lombok.extern.log4j.Log4j2;
 import org.siriusxi.blueharvest.bank.common.api.composite.customer.CustomerAggregate;
+import org.siriusxi.blueharvest.bank.common.api.dto.AccountDTO;
 import org.siriusxi.blueharvest.bank.cs.integration.AccountIntegration;
 import org.siriusxi.blueharvest.bank.cs.persistence.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,9 @@ public class CustomerService {
                         accountIntegration
                                 .getCustomerAccounts(entity.getId())))
                 .collect(Collectors.toList());
+    }
+
+    public void createCustomerAccount(AccountDTO account) {
+        accountIntegration.createAccount(account);
     }
 }

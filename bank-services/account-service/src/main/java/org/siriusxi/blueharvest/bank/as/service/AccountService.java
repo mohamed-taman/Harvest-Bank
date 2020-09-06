@@ -5,7 +5,6 @@ import org.siriusxi.blueharvest.bank.as.integration.TransactionIntegration;
 import org.siriusxi.blueharvest.bank.as.persistence.entity.AccountEntity;
 import org.siriusxi.blueharvest.bank.as.persistence.AccountRepository;
 import org.siriusxi.blueharvest.bank.common.api.composite.account.Account;
-import org.siriusxi.blueharvest.bank.common.api.composite.trx.Transaction;
 import org.siriusxi.blueharvest.bank.common.api.dto.TransactionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +39,8 @@ public class AccountService {
 
     public void createAccount(AccountEntity entity) {
         accountRepository.save(entity);
+        transactionIntegration.createTransaction(new TransactionDTO(entity.getId(),
+                entity.getBalance()));
         log.debug("Account created with ID -----> {}", entity.getId());
     }
 }

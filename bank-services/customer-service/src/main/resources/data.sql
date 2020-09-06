@@ -7,11 +7,11 @@ CREATE TABLE customer (
   balance DECIMAL(10, 2) DEFAULT 0.0
 );
 
-INSERT INTO customer (first_name, last_name, balance) VALUES
-  ('Mohamed', 'Taman', 200.20),
-  ('Issa', 'Ahmed', 100.30),
-  ('Matin', 'Abbasi', 10.0),
-  ('Milica', 'Jovicic', 0.0),
-  ('Angèl', 'Wijnhard', 0.0),
-  ('Fatih', 'Akbas',0.0),
-  ('Ibrahim', 'Moustafa', 0.0);
+INSERT INTO customer (first_name, last_name) VALUES
+  ('Mohamed', 'Taman'),
+  ('Issa', 'Ahmed'),
+  ('Matin', 'Abbasi'),
+  ('Milica', 'Jovicic'),
+  ('Angèl', 'Wijnhard'),
+  ('Fatih', 'Akbas'),
+  ('Ibrahim', 'Moustafa');

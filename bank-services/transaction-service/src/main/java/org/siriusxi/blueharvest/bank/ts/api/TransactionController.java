@@ -37,6 +37,6 @@ public class TransactionController {
   public void createTransaction(@RequestBody TransactionDTO transaction) {
     transactionService.createTransaction(new TransactionEntity(transaction.getAccountId(),
             transaction.getAmount()));
-    log.debug("createAccount: creates a new account {} for CustomerId: {}", transaction.toString());
+    log.debug("createTransaction: creates a new Transaction {}", transaction);
   }
 }

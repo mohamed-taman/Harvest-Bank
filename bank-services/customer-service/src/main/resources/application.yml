@@ -35,3 +35,9 @@ logging.level:
         bank: DEBUG
   web: DEBUG
   root: INFO
+
+# Application specific params
+app:
+  account-service:
+    host: localhost
+    port: 8091
