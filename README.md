@@ -5,6 +5,13 @@ A set of interacting microservices, representing a very basic banking system.
 - This project is a development of a small set of **Spring Boot** projects, with a database in-memory.
 ---
 ## Getting started
+
+### Project Management
+1. I have used GitHub projects to manage my tasks in the **Harvest Bank** project. [Project Link](https://github.com/mohamed-taman/Harvest-Bank/projects/1)
+2. All MVP tasks are assigned to the **Harvest Bank MVP Milestone**. [Milestone Link](https://github.com/mohamed-taman/Harvest-Bank/milestone/1?closed=1)
+3. I used Pull requests to manages and close my tasks. [Tasks Link](https://github.com/mohamed-taman/Harvest-Bank/issues?q=)
+4. Finally, I have added releases to manage small features sprints until the final release v1.5. [Releases Link](https://github.com/mohamed-taman/Harvest-Bank/releases)
+
 ### System components Structure
 Let's explain first the system structure to understand its components:
 ```
@@ -144,7 +151,18 @@ Starting [customer-service] μService....      Done
 Starting [transaction-service] μService....   Done
 ```
 ### Access Bank APIs
-You can manually test `Customer Service` APIs throughout its **OpenAPI** interface at the following URL [https://localhost:8090/swagger-ui.html](https://localhost:8090/swagger-ui.html).
+You can manually test the whole system through `Customer Service` APIs within its **OpenAPI
+** interface at the following URL [http://localhost:8090/swagger-ui.html](http://localhost:8090/swagger-ui.html)
+
+#### System Behaviours
+1. If you execute get customers through `/bank/api/v1/customers`, it will return pre-defined seven customers.
+2. If you tried to pass through `/bank/api/v1/customers/{id}/accounts` the following: 
+    1. A none exist customer {Id} system will return **404** (*Not Found*) with error message.
+    2. A minus customer {Id} or Initial Credit, System will return **422** (*Unprocessable Entity*) with an error message.
+    3. An invalid format customer {Id} or Initial Credit, System will return **400** (*Bad Request*) with an error message.
+3. If the initial credit is 0.0, the system expects to create an account and no transaction.
+4. If the initial credit is > 0.0, i.e., 100, The system is expected to create a new account with a balance of 100. A new transaction with the amount of 100 and customer balance will be 100.
+5. Suppose another create account call happened to the same customer. In that case, the system will do what is done at point **#4**. The customer balance will be *updated* to reflect the sum of all accounts balances and transaction amounts. 
 
 ### Stopping Them All
 Now it's the time to stop all of our Microservices, and it's straightforward, just run the following commands:
