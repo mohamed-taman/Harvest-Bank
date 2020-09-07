@@ -1,4 +1,4 @@
-# Harvest Bank μServices ![GitHub release (latest by date)](https://img.shields.io/github/v/release/mohamed-taman/Harvest-Bank) [![Release Codename](https://img.shields.io/badge/codename-Harvest-yellow.svg)](https://github.com/mohamed-taman/harvest-bank/releases)
+# Harvest Bank μServices ![GitHub release (latest by date)](https://img.shields.io/github/v/release/mohamed-taman/Harvest-Bank) [![Release Codename](https://img.shields.io/badge/codename-Harvest_2-yellow.svg)](https://github.com/mohamed-taman/harvest-bank/releases)
 
 A set of interacting microservices, representing a very basic banking system.
 
