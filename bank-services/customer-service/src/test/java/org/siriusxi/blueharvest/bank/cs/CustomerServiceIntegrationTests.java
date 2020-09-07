@@ -66,7 +66,7 @@ class CustomerServiceIntegrationTests {
 
   @Test
   @Order(2)
-  void createAccountInvalidIdLessThanZero() throws Exception {
+  void createAccountInvalidCustomerIdLessThanZero() throws Exception {
 
     // When
     mvc.perform(
@@ -78,7 +78,7 @@ class CustomerServiceIntegrationTests {
         .andExpect(
             jsonPath(
                 "$.message",
-                is("Invalid account data AccountDTO(customerId=0, initialCredit=100.00)")));
+                is("Invalid data (Customer Id= -1, initialCredit= 100.00)")));
   }
 
   @Test
@@ -95,7 +95,7 @@ class CustomerServiceIntegrationTests {
         .andExpect(
             jsonPath(
                 "$.message",
-                is("Invalid account data AccountDTO(customerId=0, initialCredit=-100.00)")));
+                is("Invalid data (Customer Id= 1, initialCredit= -100.00)")));
   }
 
   @Test

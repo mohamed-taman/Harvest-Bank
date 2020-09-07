@@ -37,15 +37,15 @@ public class CustomerController {
           value = "customers/{id}/accounts",
           consumes = APPLICATION_JSON_VALUE)
   public void createAccount(@PathVariable int id, @RequestBody AccountDTO account) {
-
-    log.debug("createAccount: creates a new account {}", account);
-
     requireNonNull(account, "Invalid account data.");
 
     if (id <= 0 || account.getInitialCredit().doubleValue() < 0.0)
-      throw new InvalidInputException(format("Invalid account data %s", account));
+      throw new InvalidInputException(format("Invalid data (Customer Id= %d, " +
+              "initialCredit= %.2f)", id, account.getInitialCredit().doubleValue()));
 
     account.setCustomerId(id);
     customerService.createCustomerAccount(account);
+
+    log.debug("createAccount: a new account {} is created.", account);
   }
 }
