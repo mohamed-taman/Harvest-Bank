@@ -29,18 +29,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-@SpringBootTest(webEnvironment = RANDOM_PORT, classes = TransactionServiceApplication.class)
+@SpringBootTest(
+        webEnvironment = RANDOM_PORT,
+        classes = TransactionServiceApplication.class)
 @AutoConfigureMockMvc
 class TransactionServiceIntegrationTests {
 
-  @Autowired
-  private MockMvc mvc;
+  @Autowired private MockMvc mvc;
 
-  @Autowired
-  private TransactionService transactionService;
+  @Autowired private TransactionService transactionService;
 
-  @Autowired
-  private TransactionRepository transactionRepository;
+  @Autowired private TransactionRepository transactionRepository;
 
   @AfterEach
   public void resetDb() {
@@ -49,16 +48,14 @@ class TransactionServiceIntegrationTests {
 
   @Test
   void whenValidInput_thenCreateTransaction() throws Exception {
-    // Given
-    List<Transaction> allTransactions =
-        List.of(new Transaction(1, CREDIT, new BigDecimal("10000.77")));
+    // Given transaction
+    mvc.perform(
+            post("/bank/api/v1/transactions")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(new TransactionDTO(1, new BigDecimal("10000.77")))))
+        .andExpect(status().isOk());
 
     // When
-    mvc.perform(
-        post("/bank/api/v1/transactions")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(toJson(new TransactionDTO(1, new BigDecimal("10000.77")))));
-
     List<Transaction> found = transactionService.getTransactions(1);
 
     // Then
@@ -73,7 +70,7 @@ class TransactionServiceIntegrationTests {
     trx.setType(TransactionType.DEBIT);
 
     List.of(new TransactionEntity(1, new BigDecimal("100.10")), trx)
-            .forEach(entity ->  transactionService.createTransaction(entity));
+        .forEach(entity -> transactionService.createTransaction(entity));
 
     // When
     mvc.perform(
