@@ -24,6 +24,7 @@ management:
     enabled: true
   endpoints.web.exposure.include: "*"
   endpoint:
+    shutdown.enabled: true
     health.show-details: always
 
 logging.level:
