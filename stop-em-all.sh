@@ -2,7 +2,7 @@
 ## Author: Mohamed Taman
 ## version: v0.7
 
-echo -e "Stopping [Harvest Bank] μServices ....\n\
+echo -e "\nStopping [Harvest Bank] μServices ....\n\
 ---------------------------------------\n"
 for port in 8090 8091 8092
 do
