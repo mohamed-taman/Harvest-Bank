@@ -14,4 +14,11 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>Customer Service</name>
     <description>Customer μService, is a Spring boot based project.</description>
+    <dependencies>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.4.5</version>
+        </dependency>
+    </dependencies>
 </project>
