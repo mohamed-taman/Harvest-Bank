@@ -24,7 +24,9 @@ public class AccountController {
     this.accountService = accountService;
   }
 
-  @GetMapping(value = "accounts", produces = APPLICATION_JSON_VALUE)
+  @GetMapping(
+          value = "accounts",
+          produces = APPLICATION_JSON_VALUE)
   public List<Account> getAccounts(@RequestParam("customerId") int customerId) {
     return accountService.getAccounts(customerId);
   }
@@ -33,8 +35,8 @@ public class AccountController {
           value = "/accounts",
           consumes = APPLICATION_JSON_VALUE)
   public void createAccount(@RequestBody AccountDTO account) {
-    accountService.createAccount(new AccountEntity(account.getCustomerId(),
-            account.getInitialCredit()));
-    log.debug("createAccount: creates a new account {} for CustomerId: {}", account.toString());
+    accountService.createAccount(
+        new AccountEntity(account.getCustomerId(), account.getInitialCredit()));
+    log.debug("createAccount: creates a new account {}", account.toString());
   }
 }

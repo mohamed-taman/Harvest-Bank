@@ -7,12 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-class CustomerRepositoryIntegrationTests {
+class CustomerRepositoryLayerTests {
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -22,7 +21,7 @@ class CustomerRepositoryIntegrationTests {
         // given all 7 employees already initialized
 
         // when
-        Iterable<CustomerEntity> found = customerRepository.findAll();
+        var found = customerRepository.findAll();
 
         // then
         assertThat(found.spliterator().getExactSizeIfKnown()).isEqualTo(7);
@@ -31,7 +30,7 @@ class CustomerRepositoryIntegrationTests {
     @Test
     void updateCustomerBalance() {
         // given 7th employee already initialized with balance 0.0
-        Optional<CustomerEntity> foundCustomer = customerRepository.findById(7);
+        var foundCustomer = customerRepository.findById(7);
 
         CustomerEntity customer = null;
 
@@ -45,7 +44,6 @@ class CustomerRepositoryIntegrationTests {
         customerRepository.save(customer);
 
         // then
-        foundCustomer = null;
         customer = null;
 
         foundCustomer = customerRepository.findById(7);
