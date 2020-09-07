@@ -20,8 +20,8 @@ import java.util.List;
  */
 public record CustomerAggregate(
         @JsonProperty("id") int id,
-        @JsonProperty("firstName") String firstName,
-        @JsonProperty("lastName")String lastName,
+        @JsonProperty("name") String firstName,
+        @JsonProperty("Surname")String lastName,
         @JsonProperty("balance") BigDecimal balance,
         @JsonProperty("accounts") List<Account> accounts) {
 }

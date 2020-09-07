@@ -38,40 +38,37 @@ class TransactionControllerLayerTests {
 
   @Test
   void whenValidInput_thenCreateTransaction() throws Exception {
-    //Given
-    List<Transaction> allTransactions =
-            List.of(
-                    new Transaction(1, CREDIT, new BigDecimal("10000.77")));
+    // Given
+    given(transactionService.getTransactions(1))
+            .willReturn(
+                    List.of(
+                            new Transaction(1, CREDIT, new BigDecimal("10000.77"))));
 
-    given(transactionService.getTransactions(1)).willReturn(allTransactions);
-
-    //When
+    // When
     mvc.perform(
-        post("/bank/api/v1/transactions")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(toJson(new TransactionDTO(1,new BigDecimal("10000.77")))));
+            post("/bank/api/v1/transactions")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(new TransactionDTO(1, new BigDecimal("10000.77")))))
+        .andExpect(status().isOk());
 
     List<Transaction> found = transactionService.getTransactions(1);
 
-    //Then
-    assertThat(found.get(0).amount())
-            .isEqualTo(new BigDecimal("10000.77"));
+    // Then
+    assertThat(found.get(0).amount()).isEqualTo(new BigDecimal("10000.77"));
 
-    assertThat(found.get(0).type())
-            .isEqualTo(CREDIT);
+    assertThat(found.get(0).type()).isEqualTo(CREDIT);
   }
 
   @Test
   void givenTransactions_whenGetTransactions_thenReturnJsonArray() throws Exception {
     // Given
-    List<Transaction> allTransactions =
-        List.of(
-            new Transaction(1, CREDIT, new BigDecimal("100.10")),
-            new Transaction(1, TransactionType.DEBIT, new BigDecimal("90.11")));
+    given(transactionService.getTransactions(1))
+        .willReturn(
+            List.of(
+                new Transaction(1, CREDIT, new BigDecimal("100.10")),
+                new Transaction(1, TransactionType.DEBIT, new BigDecimal("90.11"))));
 
-    given(transactionService.getTransactions(1)).willReturn(allTransactions);
-
-    //When
+    // When
     mvc.perform(
             get("/bank/api/v1/transactions?accountId=1")
                     .contentType(MediaType.APPLICATION_JSON))
