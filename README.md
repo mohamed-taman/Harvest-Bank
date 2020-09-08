@@ -39,14 +39,11 @@ Now, as we have learned about different system components, then let's start.
 ### Required software
 
 The following are the initially required software pieces:
-
-1. **Git**: it can be downloaded and installed from https://git-scm.com/downloads.
-
-2. **Java 15 EA**: it can be downloaded and installed from https://jdk.java.net/15/.
-
-3. **curl**: this command-line tool for testing HTTP-based APIs can be downloaded and installed from https://curl.haxx.se/download.html.
-
-4. **jq**: This command-line JSON processor can be downloaded and installed from https://stedolan.github.io/jq/download/.
+1. **Maven**: Apache Maven is a software project management and comprehension tool, it can be downloaded from here https://maven.apache.org/download.cgi
+1. **Git**: it can be downloaded and installed from https://git-scm.com/downloads
+1. **Java, JDK 15 RC**: it can be downloaded and installed from https://jdk.java.net/15/
+1. **curl**: this command-line tool for testing HTTP-based APIs can be downloaded and installed from https://curl.haxx.se/download.html
+1. **jq**: This command-line JSON processor can be downloaded and installed from https://stedolan.github.io/jq/download/
 
 Follow the installation guide for each software website link and check your software versions from the command line to verify that they are all installed correctly.
 
