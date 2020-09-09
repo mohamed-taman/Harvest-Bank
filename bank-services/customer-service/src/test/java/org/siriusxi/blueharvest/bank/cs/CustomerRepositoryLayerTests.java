@@ -37,9 +37,10 @@ class CustomerRepositoryLayerTests {
         if (foundCustomer.isPresent())
             customer = foundCustomer.get();
 
-        assertThat(customer.getBalance()).isEqualTo(new BigDecimal("0.00"));
+        assertThat(customer != null ? customer.getBalance() : null).isEqualTo(new BigDecimal("0.00"));
 
         // when
+        assert customer != null;
         customer.setBalance(new BigDecimal("9999.90"));
         customerRepository.save(customer);
 
@@ -51,6 +52,7 @@ class CustomerRepositoryLayerTests {
         if (foundCustomer.isPresent())
             customer = foundCustomer.get();
 
+        assert customer != null;
         assertThat(customer.getBalance()).isEqualTo(new BigDecimal("9999.90"));
     }
 

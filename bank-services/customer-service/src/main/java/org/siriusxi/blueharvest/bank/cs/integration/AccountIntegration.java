@@ -21,9 +21,9 @@ public class AccountIntegration {
 
     private final String accountServiceUrl;
 
-    private final String BASE_URL = "/bank/api/v1/";
+    private static final  String BASE_URL = "/bank/api/v1/";
 
-    private final String QUERY_PARAM = "?customerId=";
+    private static final  String QUERY_PARAM = "?customerId=";
 
     @Autowired
     public AccountIntegration(

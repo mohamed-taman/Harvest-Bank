@@ -21,9 +21,9 @@ public class TransactionIntegration {
 
     private final String transactionServiceUrl;
 
-    private final String BASE_URL = "/bank/api/v1/";
+    private static final String BASE_URL = "/bank/api/v1/";
 
-    private final String QUERY_PARAM = "?accountId=";
+    private static final String QUERY_PARAM = "?accountId=";
 
     @Autowired
     public TransactionIntegration(

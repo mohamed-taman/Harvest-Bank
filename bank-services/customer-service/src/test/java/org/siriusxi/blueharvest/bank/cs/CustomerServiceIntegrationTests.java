@@ -201,6 +201,7 @@ class CustomerServiceIntegrationTests {
     if(found.isPresent())
       customer = found.get();
 
+    assert customer != null;
     assertThat(customer.getBalance()).isEqualTo(new BigDecimal("200.40"));
   }
 
