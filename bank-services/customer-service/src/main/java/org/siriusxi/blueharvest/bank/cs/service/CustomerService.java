@@ -3,7 +3,6 @@ package org.siriusxi.blueharvest.bank.cs.service;
 import lombok.extern.log4j.Log4j2;
 import org.siriusxi.blueharvest.bank.common.api.composite.customer.CustomerAggregate;
 import org.siriusxi.blueharvest.bank.common.api.dto.AccountDTO;
-import org.siriusxi.blueharvest.bank.common.exception.InvalidInputException;
 import org.siriusxi.blueharvest.bank.common.exception.NotFoundException;
 import org.siriusxi.blueharvest.bank.cs.integration.AccountIntegration;
 import org.siriusxi.blueharvest.bank.cs.persistence.CustomerRepository;
@@ -11,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static java.lang.String.format;
-import static java.util.Objects.requireNonNull;
 
 /**
  * <code>CustomerService</code> class is a service layer in Harvest Microservice, that hold all business logic
