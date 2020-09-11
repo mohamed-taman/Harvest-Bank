@@ -1,9 +1,12 @@
-# Harvest Bank μServices ![GitHub release (latest by date)](https://img.shields.io/github/v/release/mohamed-taman/Harvest-Bank) [![Release Codename](https://img.shields.io/badge/codename-Harvest_2-yellow.svg)](https://github.com/mohamed-taman/harvest-bank/releases)
+# Harvest Bank μServices ![GitHub release (latest by date)](https://img.shields.io/github/v/release/mohamed-taman/Harvest-Bank) [![Release Codename](https://img.shields.io/badge/codename-Harvest_2-yellow.svg)](https://github.com/mohamed-taman/harvest-bank/releases) [![BCH compliance](https://bettercodehub.com/edge/badge/mohamed-taman/Harvest-Bank?branch=master)](https://bettercodehub.com/)
 
 A set of interacting microservices, representing a very basic banking system.
 
 - This project is a development of a small set of **Spring Boot** projects, with a database in-memory.
 ---
+## Better Code Hub
+I analysed this repository according to the clean code standards on [Better Code Hub](https://bettercodehub.com/) just to get an independent opinion of how bad the code is. Surprisingly, the compliance score is high!
+
 ## Getting started
 
 ### Project Management
