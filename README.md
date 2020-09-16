@@ -151,8 +151,7 @@ Starting [customer-service] μService....      Done
 Starting [transaction-service] μService....   Done
 ```
 ### Access Bank APIs
-You can manually test the whole system through `Customer Service` APIs within its **OpenAPI
-** interface at the following URL [http://localhost:8090/swagger-ui.html](http://localhost:8090/swagger-ui.html)
+You can manually test the whole system through `Customer Service` APIs within its **OpenAPI** interface at the following URL [http://localhost:8090/swagger-ui.html](http://localhost:8090/swagger-ui.html)
 
 #### System Behaviours
 1. If you execute get customers through `/bank/api/v1/customers`, it will return pre-defined seven customers.
