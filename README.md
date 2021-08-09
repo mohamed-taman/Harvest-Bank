@@ -1,4 +1,4 @@
-# Harvest Bank μServices ![GitHub release (latest by date)](https://img.shields.io/github/v/release/mohamed-taman/Harvest-Bank) [![Release Codename](https://img.shields.io/badge/codename-Harvest_2-yellow.svg)](https://github.com/mohamed-taman/harvest-bank/releases) [![BCH compliance](https://bettercodehub.com/edge/badge/mohamed-taman/Harvest-Bank?branch=master)](https://bettercodehub.com/)
+# Harvest Bank μServices ![GitHub release (latest by date)](https://img.shields.io/github/v/release/mohamed-taman/Harvest-Bank) [![Release Codename](https://img.shields.io/badge/codename-Harvest_3-yellow.svg)](https://github.com/mohamed-taman/harvest-bank/releases) [![BCH compliance](https://bettercodehub.com/edge/badge/mohamed-taman/Harvest-Bank?branch=master)](https://bettercodehub.com/)
 
 A set of interacting microservices, representing a very basic banking system.
 
