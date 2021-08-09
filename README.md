@@ -2,21 +2,34 @@
 
 A set of interacting microservices, representing a very basic banking system.
 
-- This project is a development of a small set of **Spring Boot** projects, with a database in-memory.
+- This project is a development of a small set of **Spring Boot** projects, with a database
+  in-memory.
+
 ---
+
 ## Better Code Hub
-I analysed this repository according to the clean code standards on [Better Code Hub](https://bettercodehub.com/) just to get an independent opinion of how bad the code is. Surprisingly, the compliance score is high!
+
+I analysed this repository according to the clean code standards
+on [Better Code Hub](https://bettercodehub.com/) just to get an independent opinion of how bad the
+code is. Surprisingly, the compliance score is high!
 
 ## Getting started
 
 ### Project Management
-1. I have used GitHub projects to manage my tasks in the **Harvest Bank** project. [Project Link](https://github.com/mohamed-taman/Harvest-Bank/projects/1)
-2. All MVP tasks are assigned to the **Harvest Bank MVP Milestone**. [Milestone Link](https://github.com/mohamed-taman/Harvest-Bank/milestone/1?closed=1)
-3. I used Pull requests to manages and close my tasks. [Tasks Link](https://github.com/mohamed-taman/Harvest-Bank/issues?q=)
-4. Finally, I have added releases to manage small features sprints until the final release v1.5. [Releases Link](https://github.com/mohamed-taman/Harvest-Bank/releases)
+
+1. I have used GitHub projects to manage my tasks in the **Harvest Bank**
+   project. [Project Link](https://github.com/mohamed-taman/Harvest-Bank/projects/1)
+2. All MVP tasks are assigned to the **Harvest Bank MVP Milestone**
+   . [Milestone Link](https://github.com/mohamed-taman/Harvest-Bank/milestone/1?closed=1)
+3. I used Pull requests to manages and close my
+   tasks. [Tasks Link](https://github.com/mohamed-taman/Harvest-Bank/issues?q=)
+4. Finally, I have added releases to manage small features sprints until the final release
+   v1.5. [Releases Link](https://github.com/mohamed-taman/Harvest-Bank/releases)
 
 ### System components Structure
+
 Let's explain first the system structure to understand its components:
+
 ```
 Harvest-Bank --> Parent folder. 
 |- docs --> All docs and diagrams. 
@@ -33,6 +46,7 @@ Harvest-Bank --> Parent folder.
 |- stop-em-all.sh --> Stop all services runs in standalone mode. 
 |- test-em-all.sh --> This will start all Microservices landscape and test them, then shutdown Microservices after test finishes (use switch start and stop)
 ```
+
 Now, as we have learned about different system components, then let's start.
 
 ### System Boundary - μServices Landscape
@@ -42,27 +56,36 @@ Now, as we have learned about different system components, then let's start.
 ### Required software
 
 The following are the initially required software pieces:
-1. **Maven**: Apache Maven is a software project management and comprehension tool, it can be downloaded from here https://maven.apache.org/download.cgi
+
+1. **Maven**: Apache Maven is a software project management and comprehension tool, it can be
+   downloaded from here https://maven.apache.org/download.cgi
 1. **Git**: it can be downloaded and installed from https://git-scm.com/downloads
 1. **Java, JDK 15 RC**: it can be downloaded and installed from https://jdk.java.net/15/
-1. **curl**: this command-line tool for testing HTTP-based APIs can be downloaded and installed from https://curl.haxx.se/download.html
-1. **jq**: This command-line JSON processor can be downloaded and installed from https://stedolan.github.io/jq/download/
+1. **curl**: this command-line tool for testing HTTP-based APIs can be downloaded and installed
+   from https://curl.haxx.se/download.html
+1. **jq**: This command-line JSON processor can be downloaded and installed
+   from https://stedolan.github.io/jq/download/
 
-Follow the installation guide for each software website link and check your software versions from the command line to verify that they are all installed correctly.
+Follow the installation guide for each software website link and check your software versions from
+the command line to verify that they are all installed correctly.
 
 ## Using an IDE
 
-I recommend that you work with your Java code using an IDE that supports the development of Spring Boot applications such as **Spring Tool Suite** or **IntelliJ IDEA Ultimate Edition**. 
+I recommend that you work with your Java code using an IDE that supports the development of Spring
+Boot applications such as **Spring Tool Suite** or **IntelliJ IDEA Ultimate Edition**.
 
-So you can use the Spring Boot Dashboard to run the services, run each Microservice test case, and many more.
+So you can use the Spring Boot Dashboard to run the services, run each Microservice test case, and
+many more.
 
-All you have to do is just fire up your favorit IDE **->** open or import the parent folder `Harvest-Bank`, and everything will be ready for you.
+All you have to do is just fire up your favorit IDE **->** open or import the parent
+folder `Harvest-Bank`, and everything will be ready for you.
 
 ## Playing With Harvest Bank Project
 
 ### Cloning It
 
-The first thing to do is to open **git bash** command line, and then simply you can clone the project under any of your favorite places as the following:
+The first thing to do is to open **git bash** command line, and then simply you can clone the
+project under any of your favorite places as the following:
 
 ```bash
 > git clone https://github.com/mohamed-taman/Harvest-Bank.git
@@ -70,13 +93,15 @@ The first thing to do is to open **git bash** command line, and then simply you 
 
 ### Build & Test Them In Isolation
 
-To build and run the test cases for each service & shared modules in the project, we need to do the following:
+To build and run the test cases for each service & shared modules in the project, we need to do the
+following:
 
 #### First: Build & Install Shared Dependencies
 
 > This done only for the first time or any new changes or versions of shared modules and POMs.
 
-To build and install `bank-build-chassis`, and `bank-services-chassis` POMs, and `bank-common` shared library, from the root folder `Harvest-Bank`, run the following command:
+To build and install `bank-build-chassis`, and `bank-services-chassis` POMs, and `bank-common`
+shared library, from the root folder `Harvest-Bank`, run the following command:
 
 ```bash
 mohamed_taman:Harvest-Bank$ ./setup.sh
@@ -100,14 +125,18 @@ Done successfully.
 Woohoo, building & installing all project modules are finished successfully.
 The project is ready for the next step. :)
 ```
+
 #### Second: Build & Test Microservices
-Now it is the time to build our **3 microservices** and run each service unit and integration tests in isolation by running the following commands:
+
+Now it is the time to build our **3 microservices** and run each service unit and integration tests
+in isolation by running the following commands:
 
 ```bash
 mohamed_taman:Harvest-Bank$ ./mvnw clean verify
 ```
 
-All build commands and test suite for each microservice should run successfully, and the final output should be like this:
+All build commands and test suite for each microservice should run successfully, and the final
+output should be like this:
 
 ```bash
 -------< org.siriusxi.blueharvest.bank:Harvest-Bank-aggregator >--------
@@ -134,13 +163,16 @@ All build commands and test suite for each microservice should run successfully,
 ```
 
 ### Running Them All
-Now it's the time to run all of our Microservices, and it's straightforward, just run the following commands:
+
+Now it's the time to run all of our Microservices, and it's straightforward, just run the following
+commands:
 
 ```bash
 mohamed_taman:Harvest-Bank$ ./run-em-all.sh
 ```
 
-All the **services**, In-memory **databases**, will run in parallel in a detach mode, and the command output will print the following to console:
+All the **services**, In-memory **databases**, will run in parallel in a detach mode, and the
+command output will print the following to console:
 
 ```bash
 Starting [Harvest Bank] μServices ....
@@ -150,21 +182,31 @@ Starting [account-service] μService....       Done
 Starting [customer-service] μService....      Done 
 Starting [transaction-service] μService....   Done
 ```
+
 ### Access Bank APIs
 You can manually test the whole system through `Customer Service` APIs within its **OpenAPI** interface at the following URL [http://localhost:8090/swagger-ui.html](http://localhost:8090/swagger-ui.html)
 
 #### System Behaviours
-1. If you execute get customers through `/bank/api/v1/customers`, it will return pre-defined seven customers.
-2. If you tried to pass through `/bank/api/v1/customers/{id}/accounts` the following: 
+
+1. If you execute get customers through `/bank/api/v1/customers`, it will return pre-defined seven
+   customers.
+2. If you tried to pass through `/bank/api/v1/customers/{id}/accounts` the following:
     1. A none exist customer {Id} system will return **404** (*Not Found*) with error message.
-    2. A minus customer {Id} or Initial Credit, System will return **422** (*Unprocessable Entity*) with an error message.
-    3. An invalid format customer {Id} or Initial Credit, System will return **400** (*Bad Request*) with an error message.
+    2. A minus customer {Id} or Initial Credit, System will return **422** (*Unprocessable Entity*)
+       with an error message.
+    3. An invalid format customer {Id} or Initial Credit, System will return **400** (*Bad Request*)
+       with an error message.
 3. If the initial credit is 0.0, the system expects to create an account and no transaction.
-4. If the initial credit is > 0.0, i.e., 100, The system is expected to create a new account with a balance of 100. A new transaction with the amount of 100 and customer balance will be 100.
-5. Suppose another create account call happened to the same customer. In that case, the system will do what is done at point **#4**. The customer balance will be *updated* to reflect the sum of all accounts balances and transaction amounts. 
+4. If the initial credit is > 0.0, i.e., 100, The system is expected to create a new account with a
+   balance of 100. A new transaction with the amount of 100 and customer balance will be 100.
+5. Suppose another create account call happened to the same customer. In that case, the system will
+   do what is done at point **#4**. The customer balance will be *updated* to reflect the sum of all
+   accounts balances and transaction amounts.
 
 ### Stopping Them All
-Now it's the time to stop all of our Microservices, and it's straightforward, just run the following commands:
+
+Now it's the time to stop all of our Microservices, and it's straightforward, just run the following
+commands:
 
 ```bash
 mohamed_taman:Harvest-Bank$ ./stop-em-all.sh
@@ -188,16 +230,20 @@ Stopping μService at port 8092 ....
 {"message":"Shutting down, bye..."}
 μService at port 8092 stopped successfully ....
 ```
+
 ### Testing Them All
-Now it's time to test all the application functionality as one part. To do so just run the following automation test script:
+
+Now it's time to test all the application functionality as one part. To do so just run the following
+automation test script:
 
 ```bash
 mohamed_taman:Harvest-Bank$ ./test-em-all.sh start stop
 ```
 
-You can use `stop` switch with `start`, that will 
-1. **Start** the whole microservices landscape, 
-2. **Run** the system black-box tests, if successful then 
+You can use `stop` switch with `start`, that will
+
+1. **Start** the whole microservices landscape,
+2. **Run** the system black-box tests, if successful then
 3. **Stop** the whole microservices.
 
 The result will look like this:
@@ -272,11 +318,14 @@ Stopping μService at port 8092 ....
 
 ### Closing The Story
 
-Finally, hope you enjoyed the application and find it useful. If you would like to enhance please open **PR**, and finally give it a 🌟.
+Finally, hope you enjoyed the application and find it useful. If you would like to enhance please
+open **PR**, and finally give it a 🌟.
 
 ## The End
-Happy Coding 😊 
+
+Happy Coding 😊
 
 ## License
+
 Copyright (C) 2020 Mohamed Taman, Licensed under the **Apache-2.0 License**.
 

@@ -10,9 +10,9 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public class TransactionDTO {
 
-  @NonNull
-  private int accountId;
+    @NonNull
+    private int accountId;
 
-  @NonNull
-  private BigDecimal amount;
+    @NonNull
+    private BigDecimal amount;
 }

@@ -17,26 +17,26 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Log4j2
 public class AccountController {
 
-  private final AccountService accountService;
+    private final AccountService accountService;
 
-  @Autowired
-  public AccountController(AccountService accountService) {
-    this.accountService = accountService;
-  }
+    @Autowired
+    public AccountController(AccountService accountService) {
+        this.accountService = accountService;
+    }
 
-  @GetMapping(
-          value = "accounts",
-          produces = APPLICATION_JSON_VALUE)
-  public List<Account> getAccounts(@RequestParam("customerId") int customerId) {
-    return accountService.getAccounts(customerId);
-  }
+    @GetMapping(
+        value = "accounts",
+        produces = APPLICATION_JSON_VALUE)
+    public List<Account> getAccounts(@RequestParam("customerId") int customerId) {
+        return accountService.getAccounts(customerId);
+    }
 
-  @PostMapping(
-          value = "/accounts",
-          consumes = APPLICATION_JSON_VALUE)
-  public void createAccount(@RequestBody AccountDTO account) {
-    accountService.createAccount(
-        new AccountEntity(account.getCustomerId(), account.getInitialCredit()));
-    log.debug("createAccount: creates a new account {}", account.toString());
-  }
+    @PostMapping(
+        value = "/accounts",
+        consumes = APPLICATION_JSON_VALUE)
+    public void createAccount(@RequestBody AccountDTO account) {
+        accountService.createAccount(
+            new AccountEntity(account.getCustomerId(), account.getInitialCredit()));
+        log.debug("createAccount: creates a new account {}", account.toString());
+    }
 }

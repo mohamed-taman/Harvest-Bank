@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public record Account(@JsonProperty("customerId") int customerId,
-                      @JsonProperty("balance") BigDecimal balance,
-                      @JsonProperty("type") AccountType type,
-                      @JsonProperty("transactions") List<Transaction> transactions) {
-}
+@JsonProperty("balance") BigDecimal balance,
+@JsonProperty("type") AccountType type,
+@JsonProperty("transactions") List<Transaction> transactions){
+                                                    }

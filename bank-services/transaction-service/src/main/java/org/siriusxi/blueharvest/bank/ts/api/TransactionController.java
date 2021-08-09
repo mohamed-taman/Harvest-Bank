@@ -17,26 +17,26 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Log4j2
 public class TransactionController {
 
-  private final TransactionService transactionService;
+    private final TransactionService transactionService;
 
-  @Autowired
-  public TransactionController(TransactionService transactionService) {
-    this.transactionService = transactionService;
-  }
+    @Autowired
+    public TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 
-  @GetMapping(
-          value = "transactions",
-          produces = APPLICATION_JSON_VALUE)
-  public List<Transaction> getTransactions(@RequestParam("accountId") int accountId) {
-    return transactionService.getTransactions(accountId);
-  }
+    @GetMapping(
+        value = "transactions",
+        produces = APPLICATION_JSON_VALUE)
+    public List<Transaction> getTransactions(@RequestParam("accountId") int accountId) {
+        return transactionService.getTransactions(accountId);
+    }
 
-  @PostMapping(
-          value = "/transactions",
-          consumes = APPLICATION_JSON_VALUE)
-  public void createTransaction(@RequestBody TransactionDTO transaction) {
-    transactionService.createTransaction(new TransactionEntity(transaction.getAccountId(),
+    @PostMapping(
+        value = "/transactions",
+        consumes = APPLICATION_JSON_VALUE)
+    public void createTransaction(@RequestBody TransactionDTO transaction) {
+        transactionService.createTransaction(new TransactionEntity(transaction.getAccountId(),
             transaction.getAmount()));
-    log.debug("createTransaction: creates a new Transaction {}", transaction);
-  }
+        log.debug("createTransaction: creates a new Transaction {}", transaction);
+    }
 }

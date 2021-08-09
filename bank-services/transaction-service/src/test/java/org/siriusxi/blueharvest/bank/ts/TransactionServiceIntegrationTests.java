@@ -30,62 +30,65 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest(
-        webEnvironment = RANDOM_PORT,
-        classes = TransactionServiceApplication.class)
+    webEnvironment = RANDOM_PORT,
+    classes = TransactionServiceApplication.class)
 @AutoConfigureMockMvc
 class TransactionServiceIntegrationTests {
 
-  @Autowired private MockMvc mvc;
+    @Autowired
+    private MockMvc mvc;
 
-  @Autowired private TransactionService transactionService;
+    @Autowired
+    private TransactionService transactionService;
 
-  @Autowired private TransactionRepository transactionRepository;
+    @Autowired
+    private TransactionRepository transactionRepository;
 
-  @AfterEach
-  public void resetDb() {
-    transactionRepository.deleteAll();
-  }
+    @AfterEach
+    public void resetDb() {
+        transactionRepository.deleteAll();
+    }
 
-  @Test
-  void whenValidInput_thenCreateTransaction() throws Exception {
-    // Given transaction
-    mvc.perform(
+    @Test
+    void whenValidInput_thenCreateTransaction() throws Exception {
+        // Given transaction
+        mvc.perform(
             post("/bank/api/v1/transactions")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJson(new TransactionDTO(1, new BigDecimal("10000.77")))))
-        .andExpect(status().isOk());
+            .andExpect(status().isOk());
 
-    // When
-    List<Transaction> found = transactionService.getTransactions(1);
+        // When
+        List<Transaction> found = transactionService.getTransactions(1);
 
-    // Then
-    assertThat(found.get(0).amount()).isEqualTo(new BigDecimal("10000.77"));
-    assertThat(found.get(0).type()).isEqualTo(CREDIT);
-  }
-
-  @Test
-  void givenTransactions_whenGetTransactions_thenReturnJsonArray() throws Exception {
-    // Given
-    TransactionEntity trx = new TransactionEntity(1, new BigDecimal("90.11"));
-    trx.setType(TransactionType.DEBIT);
-
-    List.of(new TransactionEntity(1, new BigDecimal("100.10")), trx)
-        .forEach(entity -> transactionService.createTransaction(entity));
-
-    // When
-    mvc.perform(
-            get("/bank/api/v1/transactions?accountId=1").contentType(MediaType.APPLICATION_JSON))
-        .andDo(print())
         // Then
-        .andExpect(status().isOk())
-        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$", hasSize(2)))
-        .andExpect(jsonPath("$[0].amount", is(100.10)))
-        .andExpect(jsonPath("$[0].accountId", is(1)))
-        .andExpect(jsonPath("$[0].type", is("CREDIT")))
-        // And second transaction
-        .andExpect(jsonPath("$[1].amount", is(90.11)))
-        .andExpect(jsonPath("$[1].accountId", is(1)))
-        .andExpect(jsonPath("$[1].type", is("DEBIT")));
-  }
+        assertThat(found.get(0).amount()).isEqualTo(new BigDecimal("10000.77"));
+        assertThat(found.get(0).type()).isEqualTo(CREDIT);
+    }
+
+    @Test
+    void givenTransactions_whenGetTransactions_thenReturnJsonArray() throws Exception {
+        // Given
+        TransactionEntity trx = new TransactionEntity(1, new BigDecimal("90.11"));
+        trx.setType(TransactionType.DEBIT);
+
+        List.of(new TransactionEntity(1, new BigDecimal("100.10")), trx)
+            .forEach(entity -> transactionService.createTransaction(entity));
+
+        // When
+        mvc.perform(
+            get("/bank/api/v1/transactions?accountId=1").contentType(MediaType.APPLICATION_JSON))
+            .andDo(print())
+            // Then
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$", hasSize(2)))
+            .andExpect(jsonPath("$[0].amount", is(100.10)))
+            .andExpect(jsonPath("$[0].accountId", is(1)))
+            .andExpect(jsonPath("$[0].type", is("CREDIT")))
+            // And second transaction
+            .andExpect(jsonPath("$[1].amount", is(90.11)))
+            .andExpect(jsonPath("$[1].accountId", is(1)))
+            .andExpect(jsonPath("$[1].type", is("DEBIT")));
+    }
 }

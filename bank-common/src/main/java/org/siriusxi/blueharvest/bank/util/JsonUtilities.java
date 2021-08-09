@@ -7,7 +7,8 @@ import java.io.IOException;
 
 public final class JsonUtilities {
 
-    private JsonUtilities(){}
+    private JsonUtilities() {
+    }
 
     private static final ObjectMapper mapper = new ObjectMapper();
 

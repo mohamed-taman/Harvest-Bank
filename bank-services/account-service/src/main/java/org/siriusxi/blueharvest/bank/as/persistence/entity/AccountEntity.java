@@ -20,14 +20,14 @@ import static javax.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class AccountEntity {
-  @Id
-  @GeneratedValue(strategy = IDENTITY)
-  private int id;
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private int id;
 
-  @NonNull
-  private int customerId;
-  private AccountType type = AccountType.CURRENT;
+    @NonNull
+    private int customerId;
+    private AccountType type = AccountType.CURRENT;
 
-  @NonNull
-  private BigDecimal balance;
+    @NonNull
+    private BigDecimal balance;
 }

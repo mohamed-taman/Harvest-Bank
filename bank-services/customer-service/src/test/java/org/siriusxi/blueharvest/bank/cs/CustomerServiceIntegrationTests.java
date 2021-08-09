@@ -35,87 +35,87 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest(
-        webEnvironment = RANDOM_PORT,
-        classes = CustomerServiceApplication.class)
+    webEnvironment = RANDOM_PORT,
+    classes = CustomerServiceApplication.class)
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CustomerServiceIntegrationTests {
 
-  @Autowired
-  private MockMvc mvc;
+    @Autowired
+    private MockMvc mvc;
 
-  @MockBean
-  private AccountIntegration accountIntegration;
+    @MockBean
+    private AccountIntegration accountIntegration;
 
-  @Autowired
-  private CustomerRepository customerRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
-  @Test
-  @Order(1)
-  void createAccountForCustomerDoesNotExist() throws Exception {
+    @Test
+    @Order(1)
+    void createAccountForCustomerDoesNotExist() throws Exception {
 
-    // When
-    mvc.perform(
+        // When
+        mvc.perform(
             post("/bank/api/v1/customers/12/accounts")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJson(new AccountDTO(new BigDecimal("1.00")))))
-        .andExpect(status().isNotFound())
-        .andExpect(jsonPath("$.status", is("NOT_FOUND")))
-        .andExpect(jsonPath("$.message", is("No Customer found for id {12}")));
-  }
+            .andExpect(status().isNotFound())
+            .andExpect(jsonPath("$.status", is("NOT_FOUND")))
+            .andExpect(jsonPath("$.message", is("No Customer found for id {12}")));
+    }
 
-  @Test
-  @Order(2)
-  void createAccountInvalidCustomerIdLessThanZero() throws Exception {
+    @Test
+    @Order(2)
+    void createAccountInvalidCustomerIdLessThanZero() throws Exception {
 
-    // When
-    mvc.perform(
+        // When
+        mvc.perform(
             post("/bank/api/v1/customers/-1/accounts")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJson(new AccountDTO(new BigDecimal("100.00")))))
-        .andExpect(status().isUnprocessableEntity())
-        .andExpect(jsonPath("$.status", is("UNPROCESSABLE_ENTITY")))
-        .andExpect(
-            jsonPath(
-                "$.message",
-                is("Invalid data (Customer Id= -1, initialCredit= 100.00)")));
-  }
+            .andExpect(status().isUnprocessableEntity())
+            .andExpect(jsonPath("$.status", is("UNPROCESSABLE_ENTITY")))
+            .andExpect(
+                jsonPath(
+                    "$.message",
+                    is("Invalid data (Customer Id= -1, initialCredit= 100.00)")));
+    }
 
-  @Test
-  @Order(3)
-  void createAccountInvalidCreditLessThanZero() throws Exception {
+    @Test
+    @Order(3)
+    void createAccountInvalidCreditLessThanZero() throws Exception {
 
-    // When
-    mvc.perform(
+        // When
+        mvc.perform(
             post("/bank/api/v1/customers/1/accounts")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJson(new AccountDTO(new BigDecimal("-100.00")))))
-        .andExpect(status().isUnprocessableEntity())
-        .andExpect(jsonPath("$.status", is("UNPROCESSABLE_ENTITY")))
-        .andExpect(
-            jsonPath(
-                "$.message",
-                is("Invalid data (Customer Id= 1, initialCredit= -100.00)")));
-  }
+            .andExpect(status().isUnprocessableEntity())
+            .andExpect(jsonPath("$.status", is("UNPROCESSABLE_ENTITY")))
+            .andExpect(
+                jsonPath(
+                    "$.message",
+                    is("Invalid data (Customer Id= 1, initialCredit= -100.00)")));
+    }
 
-  @Test
-  @Order(4)
-  void createAccountWithCreditZero_ThenGetCustomerWitAccountNoTransaction() throws Exception {
+    @Test
+    @Order(4)
+    void createAccountWithCreditZero_ThenGetCustomerWitAccountNoTransaction() throws Exception {
 
-    // Given
-    mvc.perform(
+        // Given
+        mvc.perform(
             post("/bank/api/v1/customers/1/accounts")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJson(new AccountDTO(new BigDecimal("0.00")))))
-        .andExpect(status().isOk());
+            .andExpect(status().isOk());
 
-    given(accountIntegration.getCustomerAccounts(1))
-        .willReturn(
-            List.of(new Account(1,
+        given(accountIntegration.getCustomerAccounts(1))
+            .willReturn(
+                List.of(new Account(1,
                     new BigDecimal("0.0"), CURRENT, Collections.emptyList())));
 
-    // When
-    mvc.perform(get("/bank/api/v1/customers").contentType(MediaType.APPLICATION_JSON))
+        // When
+        mvc.perform(get("/bank/api/v1/customers").contentType(MediaType.APPLICATION_JSON))
             // Then
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -124,27 +124,27 @@ class CustomerServiceIntegrationTests {
             .andExpect(jsonPath("$[0].balance", is(0.0)))
             .andExpect(jsonPath("$[0].accounts[0].transactions", hasSize(0)));
 
-  }
+    }
 
-  @Test
-  @Order(5)
-  void createAccountWithCredit_ThenGetCustomerWitAccountAndTransaction() throws Exception {
+    @Test
+    @Order(5)
+    void createAccountWithCredit_ThenGetCustomerWitAccountAndTransaction() throws Exception {
 
-    // Given
-    mvc.perform(
+        // Given
+        mvc.perform(
             post("/bank/api/v1/customers/2/accounts")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(toJson(new AccountDTO(new BigDecimal("100.20")))))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(new AccountDTO(new BigDecimal("100.20")))))
             .andExpect(status().isOk());
 
-    given(accountIntegration.getCustomerAccounts(2))
+        given(accountIntegration.getCustomerAccounts(2))
             .willReturn(
-                    List.of(new Account(2,
-                            new BigDecimal("100.20"), CURRENT,
-                            List.of(new Transaction(1,CREDIT,new BigDecimal("100.20"))))));
+                List.of(new Account(2,
+                    new BigDecimal("100.20"), CURRENT,
+                    List.of(new Transaction(1, CREDIT, new BigDecimal("100.20"))))));
 
-    // When
-    mvc.perform(get("/bank/api/v1/customers").contentType(MediaType.APPLICATION_JSON))
+        // When
+        mvc.perform(get("/bank/api/v1/customers").contentType(MediaType.APPLICATION_JSON))
             // Then
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -155,36 +155,36 @@ class CustomerServiceIntegrationTests {
             .andExpect(jsonPath("$[1].accounts[0].balance", is(100.20)))
             .andExpect(jsonPath("$[1].accounts[0].transactions", hasSize(1)))
             .andExpect(jsonPath("$[1].accounts[0].transactions[0].amount", is(100.20)));
-  }
+    }
 
-  @Test
-  @Order(6)
-  void create2AccountsForTheSameCustomer_thenCustomerBalanceGetUpdated() throws Exception {
+    @Test
+    @Order(6)
+    void create2AccountsForTheSameCustomer_thenCustomerBalanceGetUpdated() throws Exception {
 
-    // Given
-    mvc.perform(
+        // Given
+        mvc.perform(
             post("/bank/api/v1/customers/1/accounts")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(toJson(new AccountDTO(new BigDecimal("100.20")))))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(new AccountDTO(new BigDecimal("100.20")))))
             .andExpect(status().isOk());
 
-    mvc.perform(
+        mvc.perform(
             post("/bank/api/v1/customers/1/accounts")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(toJson(new AccountDTO(new BigDecimal("100.20")))))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(new AccountDTO(new BigDecimal("100.20")))))
             .andExpect(status().isOk());
 
-    given(accountIntegration.getCustomerAccounts(1))
+        given(accountIntegration.getCustomerAccounts(1))
             .willReturn(
-                    List.of(new Account(1,
-                            new BigDecimal("100.20"), CURRENT,
-                            List.of(new Transaction(1,CREDIT,new BigDecimal("100.20")))
-                            ), new Account(1,
-                            new BigDecimal("100.20"), CURRENT,
-                            List.of(new Transaction(1,CREDIT,new BigDecimal("100.20"))))));
+                List.of(new Account(1,
+                    new BigDecimal("100.20"), CURRENT,
+                    List.of(new Transaction(1, CREDIT, new BigDecimal("100.20")))
+                ), new Account(1,
+                    new BigDecimal("100.20"), CURRENT,
+                    List.of(new Transaction(1, CREDIT, new BigDecimal("100.20"))))));
 
-    // When
-    mvc.perform(get("/bank/api/v1/customers").contentType(MediaType.APPLICATION_JSON))
+        // When
+        mvc.perform(get("/bank/api/v1/customers").contentType(MediaType.APPLICATION_JSON))
             // Then
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -196,23 +196,23 @@ class CustomerServiceIntegrationTests {
             .andExpect(jsonPath("$[0].accounts[0].transactions", hasSize(1)))
             .andExpect(jsonPath("$[0].accounts[0].transactions[0].amount", is(100.20)));
 
-    var found = customerRepository.findById(1);
-    CustomerEntity customer = null;
-    if(found.isPresent())
-      customer = found.get();
+        var found = customerRepository.findById(1);
+        CustomerEntity customer = null;
+        if (found.isPresent())
+            customer = found.get();
 
-    assert customer != null;
-    assertThat(customer.getBalance()).isEqualTo(new BigDecimal("200.40"));
-  }
+        assert customer != null;
+        assertThat(customer.getBalance()).isEqualTo(new BigDecimal("200.40"));
+    }
 
-  @Test
-  @Order(7)
-  void getAllSevenCustomers() throws Exception {
+    @Test
+    @Order(7)
+    void getAllSevenCustomers() throws Exception {
 
-    mvc.perform(get("/bank/api/v1/customers").contentType(MediaType.APPLICATION_JSON))
-        // Then
-        .andExpect(status().isOk())
-        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$", hasSize(7)));
-  }
+        mvc.perform(get("/bank/api/v1/customers").contentType(MediaType.APPLICATION_JSON))
+            // Then
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$", hasSize(7)));
+    }
 }

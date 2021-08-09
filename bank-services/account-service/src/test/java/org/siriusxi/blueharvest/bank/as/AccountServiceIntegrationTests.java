@@ -34,42 +34,42 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest(
-        webEnvironment = RANDOM_PORT,
-        classes = AccountServiceApplication.class)
+    webEnvironment = RANDOM_PORT,
+    classes = AccountServiceApplication.class)
 @AutoConfigureMockMvc
 class AccountServiceIntegrationTests {
 
-  @Autowired
-  private MockMvc mvc;
+    @Autowired
+    private MockMvc mvc;
 
-  @Autowired
-  private AccountService accountService;
+    @Autowired
+    private AccountService accountService;
 
-  @MockBean
-  private TransactionIntegration transactionIntegration;
+    @MockBean
+    private TransactionIntegration transactionIntegration;
 
-  @Autowired
-  private AccountRepository accountRepository;
+    @Autowired
+    private AccountRepository accountRepository;
 
-  @AfterEach
-  public void resetDb() {
-    accountRepository.deleteAll();
-  }
+    @AfterEach
+    public void resetDb() {
+        accountRepository.deleteAll();
+    }
 
 
-  @Test
-  void addAccountWithInitialCreditGreaterThanZero_thenReturnAccountsAndTransactionsJsonArray()
-          throws Exception {
-    // Given
-    var account = new AccountEntity(1, new BigDecimal("90.11"));
-    accountService.createAccount(account);
+    @Test
+    void addAccountWithInitialCreditGreaterThanZero_thenReturnAccountsAndTransactionsJsonArray()
+        throws Exception {
+        // Given
+        var account = new AccountEntity(1, new BigDecimal("90.11"));
+        accountService.createAccount(account);
 
-    given(transactionIntegration.getAccountTransactions(1))
+        given(transactionIntegration.getAccountTransactions(1))
             .willReturn(List.of(new Transaction(1, CREDIT, new BigDecimal("90.11"))));
 
-    // When
-    mvc.perform(get("/bank/api/v1/accounts?customerId=1")
-            .contentType(MediaType.APPLICATION_JSON))
+        // When
+        mvc.perform(get("/bank/api/v1/accounts?customerId=1")
+                        .contentType(MediaType.APPLICATION_JSON))
             // Then
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -81,21 +81,21 @@ class AccountServiceIntegrationTests {
             .andExpect(jsonPath("$[0].transactions[0].accountId", is(1)))
             .andExpect(jsonPath("$[0].transactions[0].type", is("CREDIT")))
             .andExpect(jsonPath("$[0].transactions[0].amount", is(90.11)));
-  }
+    }
 
-  @Test
-  void addAccountWithInitialCreditEqualToZero_thenReturnAccountJsonArray()
-          throws Exception {
-    // Given
-    var account = new AccountEntity(1, new BigDecimal("0.0"));
-    accountService.createAccount(account);
+    @Test
+    void addAccountWithInitialCreditEqualToZero_thenReturnAccountJsonArray()
+        throws Exception {
+        // Given
+        var account = new AccountEntity(1, new BigDecimal("0.0"));
+        accountService.createAccount(account);
 
-    given(transactionIntegration.getAccountTransactions(1))
+        given(transactionIntegration.getAccountTransactions(1))
             .willReturn(emptyList());
 
-    // When
-    mvc.perform(get("/bank/api/v1/accounts?customerId=1")
-            .contentType(MediaType.APPLICATION_JSON))
+        // When
+        mvc.perform(get("/bank/api/v1/accounts?customerId=1")
+                        .contentType(MediaType.APPLICATION_JSON))
             // Then
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -104,31 +104,31 @@ class AccountServiceIntegrationTests {
             .andExpect(jsonPath("$[0].customerId", is(1)))
             .andExpect(jsonPath("$[0].type", is("CURRENT")))
             .andExpect(jsonPath("$[0].transactions", hasSize(0)));
-  }
+    }
 
-  @Test
-  void addAccountWithInitialCreditGreaterThanZero_thenCreateAccountAndTransaction() throws Exception {
+    @Test
+    void addAccountWithInitialCreditGreaterThanZero_thenCreateAccountAndTransaction() throws Exception {
 
-    // When
-    mvc.perform(
+        // When
+        mvc.perform(
             post("/bank/api/v1/accounts")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(toJson(new AccountDTO(1, new BigDecimal("1.00")))))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(new AccountDTO(1, new BigDecimal("1.00")))))
             .andExpect(status().isOk());
 
-    given(transactionIntegration
-            .getAccountTransactions(accountRepository.findAll().iterator().next().getId()))
+        given(transactionIntegration
+                  .getAccountTransactions(accountRepository.findAll().iterator().next().getId()))
             .willReturn(List.of(new Transaction(1, CREDIT, new BigDecimal("1.00"))));
 
-    var accounts = accountService.getAccounts(1);
+        var accounts = accountService.getAccounts(1);
 
-    // Then
-    assertThat(accounts.get(0).balance()).isEqualTo(new BigDecimal("1.00"));
+        // Then
+        assertThat(accounts.get(0).balance()).isEqualTo(new BigDecimal("1.00"));
 
-    assertThat(accounts.get(0).type()).isEqualTo(CURRENT);
+        assertThat(accounts.get(0).type()).isEqualTo(CURRENT);
 
-    assertThat(accounts.get(0).transactions()).isNotNull();
+        assertThat(accounts.get(0).transactions()).isNotNull();
 
-    assertThat(accounts.get(0).transactions().size()).isEqualTo(1);
-  }
+        assertThat(accounts.get(0).transactions().size()).isEqualTo(1);
+    }
 }
