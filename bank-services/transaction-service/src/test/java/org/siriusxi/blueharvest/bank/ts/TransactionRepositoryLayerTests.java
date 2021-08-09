@@ -25,7 +25,7 @@ class TransactionRepositoryLayerTests {
 
         // When
         TransactionEntity found =
-                transactionRepository.findByAccountId(trx.getAccountId()).iterator().next();
+            transactionRepository.findByAccountId(trx.getAccountId()).iterator().next();
 
         // Then
         assertThat(found.getId()).isEqualTo(1);

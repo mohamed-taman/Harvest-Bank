@@ -22,13 +22,13 @@ public class TransactionService {
 
     public List<Transaction> getTransactions(int accountId) {
         return transactionRepository.findByAccountId(accountId)
-                .stream()
-                .map(entity -> new Transaction(accountId, entity.getType()
-                        ,entity.getAmount()))
-                .collect(Collectors.toList());
+                   .stream()
+                   .map(entity -> new Transaction(accountId, entity.getType()
+                       , entity.getAmount()))
+                   .collect(Collectors.toList());
     }
 
-    public void createTransaction(TransactionEntity entity){
+    public void createTransaction(TransactionEntity entity) {
         transactionRepository.save(entity);
     }
 }

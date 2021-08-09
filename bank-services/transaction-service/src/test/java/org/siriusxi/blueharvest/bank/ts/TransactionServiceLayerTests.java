@@ -19,45 +19,45 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-class TransactionServiceLayerTests {
+abstract class TransactionServiceLayerTests {
 
-  @InjectMocks
-  private TransactionService transactionService;
+    @InjectMocks
+    private TransactionService transactionService;
 
-  @Mock
-  private TransactionRepository transactionRepository;
+    @Mock
+    private TransactionRepository transactionRepository;
 
-  @BeforeEach
-  void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
 
-    MockitoAnnotations.openMocks(this).close();
-  }
+        MockitoAnnotations.openMocks(this).close();
+    }
 
-  @Test
-  void createTransactions(){
-    TransactionEntity trx1 = new TransactionEntity(1, new BigDecimal("100.20"));
+    @Test
+    void createTransactions() {
+        TransactionEntity trx1 = new TransactionEntity(1, new BigDecimal("100.20"));
 
-    transactionService.createTransaction(trx1);
-    transactionService.createTransaction(trx1);
+        transactionService.createTransaction(trx1);
+        transactionService.createTransaction(trx1);
 
-    verify(transactionRepository, times(2)).save(trx1);
+        verify(transactionRepository, times(2)).save(trx1);
 
-  }
+    }
 
-  @Test
-  void whenAddNewTransactions_thenTransactionsShouldBeFound() {
-    //Given
-    when(transactionRepository.findByAccountId(1))
-           .thenReturn(
-                   List.of(new TransactionEntity(1, new BigDecimal("100.20")),
-                           new TransactionEntity(1, new BigDecimal("200.20"))));
+    @Test
+    void whenAddNewTransactions_thenTransactionsShouldBeFound() {
+        //Given
+        when(transactionRepository.findByAccountId(1))
+            .thenReturn(
+                List.of(new TransactionEntity(1, new BigDecimal("100.20")),
+                    new TransactionEntity(1, new BigDecimal("200.20"))));
 
-    //when
-    List<Transaction> found = transactionService.getTransactions(1);
+        //when
+        List<Transaction> found = transactionService.getTransactions(1);
 
-    //Then
-    assertThat(found.size()).isEqualTo(2);
-    assertThat(found.get(0).amount()).isEqualTo(new BigDecimal("100.20"));
-    verify(transactionRepository, times(1)).findByAccountId(1);
-  }
+        //Then
+        assertThat(found.size()).isEqualTo(2);
+        assertThat(found.get(0).amount()).isEqualTo(new BigDecimal("100.20"));
+        verify(transactionRepository, times(1)).findByAccountId(1);
+    }
 }

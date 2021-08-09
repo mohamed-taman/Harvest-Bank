@@ -26,22 +26,20 @@ public class CustomerController {
     this.customerService = customerService;
   }
 
-  @GetMapping(
-          value = "customers",
-          produces = APPLICATION_JSON_VALUE)
+  @GetMapping(value = "customers", produces = APPLICATION_JSON_VALUE)
   public List<CustomerAggregate> getCustomers() {
     return customerService.getCustomers();
   }
 
-  @PostMapping(
-          value = "customers/{id}/accounts",
-          consumes = APPLICATION_JSON_VALUE)
+  @PostMapping(value = "customers/{id}/accounts", consumes = APPLICATION_JSON_VALUE)
   public void createAccount(@PathVariable int id, @RequestBody AccountDTO account) {
     requireNonNull(account, "Invalid account data.");
 
     if (id <= 0 || account.getInitialCredit().doubleValue() < 0.0)
-      throw new InvalidInputException(format("Invalid data (Customer Id= %d, " +
-              "initialCredit= %.2f)", id, account.getInitialCredit().doubleValue()));
+      throw new InvalidInputException(
+          format(
+              "Invalid data (Customer Id= %d, initialCredit= %.2f)",
+              id, account.getInitialCredit().doubleValue()));
 
     account.setCustomerId(id);
     customerService.createCustomerAccount(account);

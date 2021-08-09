@@ -23,15 +23,15 @@ import static javax.persistence.GenerationType.IDENTITY;
 @RequiredArgsConstructor
 public class TransactionEntity {
 
-  @Id
-  @GeneratedValue(strategy = IDENTITY)
-  private int id;
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private int id;
 
-  @NonNull
-  private int accountId;
+    @NonNull
+    private int accountId;
 
-  private TransactionType type = TransactionType.CREDIT;
+    private TransactionType type = TransactionType.CREDIT;
 
-  @NonNull
-  private BigDecimal amount;
+    @NonNull
+    private BigDecimal amount;
 }

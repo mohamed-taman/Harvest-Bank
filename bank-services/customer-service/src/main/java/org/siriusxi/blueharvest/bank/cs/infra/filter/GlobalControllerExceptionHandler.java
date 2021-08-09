@@ -19,50 +19,50 @@ import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
  * <p>It act as filter so it is pluggable component just added to microservice context
  * automatically, when you add <code>ComponentScan</code> on your application.
  *
- * @see org.springframework.context.annotation.ComponentScan
  * @author Mohamed Taman
  * @version 0.5
+ * @see org.springframework.context.annotation.ComponentScan
  * @since Harvest beta v0.1
  */
 @RestControllerAdvice
 @Log4j2
 class GlobalControllerExceptionHandler {
 
-  /**
-   * Method to handle <i>Not found exceptions</i> http error info.
-   *
-   * @param ex the ex to get its information
-   * @return the http error information.
-   * @since v0.1
-   */
-  @ResponseStatus(NOT_FOUND)
-  @ExceptionHandler(NotFoundException.class)
-  public @ResponseBody
-  HttpErrorInfo handleNotFoundExceptions(Exception ex) {
+    /**
+     * Method to handle <i>Not found exceptions</i> http error info.
+     *
+     * @param ex the ex to get its information
+     * @return the http error information.
+     * @since v0.1
+     */
+    @ResponseStatus(NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public @ResponseBody
+    HttpErrorInfo handleNotFoundExceptions(Exception ex) {
 
-    return createHttpErrorInfo(NOT_FOUND, ex);
-  }
+        return createHttpErrorInfo(NOT_FOUND, ex);
+    }
 
-  /**
-   * Method to handle <i>invalid input exception</i> http error info.
-   *
-   * @param ex the ex to get its information
-   * @return the http error information.
-   * @since v0.1
-   */
-  @ResponseStatus(UNPROCESSABLE_ENTITY)
-  @ExceptionHandler(InvalidInputException.class)
-  public @ResponseBody
-  HttpErrorInfo handleInvalidInputException(Exception ex) {
+    /**
+     * Method to handle <i>invalid input exception</i> http error info.
+     *
+     * @param ex the ex to get its information
+     * @return the http error information.
+     * @since v0.1
+     */
+    @ResponseStatus(UNPROCESSABLE_ENTITY)
+    @ExceptionHandler(InvalidInputException.class)
+    public @ResponseBody
+    HttpErrorInfo handleInvalidInputException(Exception ex) {
 
-    return createHttpErrorInfo(UNPROCESSABLE_ENTITY, ex);
-  }
+        return createHttpErrorInfo(UNPROCESSABLE_ENTITY, ex);
+    }
 
-  private HttpErrorInfo createHttpErrorInfo(
-      HttpStatus httpStatus , Exception ex) {
-    final var message = ex.getMessage();
+    private HttpErrorInfo createHttpErrorInfo(
+        HttpStatus httpStatus, Exception ex) {
+        final var message = ex.getMessage();
 
-    log.debug("Returning HTTP status: {}, message: {}", httpStatus, message);
-    return new HttpErrorInfo(httpStatus, message);
-  }
+        log.debug("Returning HTTP status: {}, message: {}", httpStatus, message);
+        return new HttpErrorInfo(httpStatus, message);
+    }
 }

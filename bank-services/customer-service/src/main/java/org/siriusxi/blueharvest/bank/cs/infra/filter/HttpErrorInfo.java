@@ -14,19 +14,18 @@ import java.time.ZonedDateTime;
  * @implNote Since it is a record and not normal POJO, so it needs some customizations
  * to be serialized to JSON and this is done with method
  * <code>GlobalConfiguration.jacksonCustomizer()</code>.
- *
- * @see Record
  * @author Mohamed Taman
  * @version 0.5
+ * @see java.lang.Record
  * @since Harvest beta v0.1
  */
 public record HttpErrorInfo(
-        @JsonProperty("status") HttpStatus httpStatus,
-        @JsonProperty("message") String message,
-        @JsonProperty("timestamp")
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
-        @JsonSerialize(using = ZonedDateTimeSerializer.class)
-        ZonedDateTime timestamp) {
+@JsonProperty("status") HttpStatus httpStatus,
+@JsonProperty("message") String message,
+@JsonProperty("timestamp")
+@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
+@JsonSerialize(using = ZonedDateTimeSerializer.class)
+        ZonedDateTime timestamp){
 
     /**
      * Instantiates a new Http error info.
@@ -34,7 +33,7 @@ public record HttpErrorInfo(
      * @param httpStatus the http status code and type.
      * @param message the error message.
      */
-public HttpErrorInfo(HttpStatus httpStatus, String message) {
-        this(httpStatus, message, ZonedDateTime.now());
+    public HttpErrorInfo(HttpStatus httpStatus,String message){
+               this(httpStatus,message,ZonedDateTime.now());
     }
 }

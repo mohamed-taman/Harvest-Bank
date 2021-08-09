@@ -22,8 +22,8 @@ class AccountRepositoryLayerTests {
     void whenFindByCustomerId_thenReturnAccounts() {
         // given
         accountRepository.saveAll(List.of(
-                new AccountEntity(99, new BigDecimal("100.20")),
-                new AccountEntity(99, new BigDecimal("200.20"))));
+            new AccountEntity(99, new BigDecimal("100.20")),
+            new AccountEntity(99, new BigDecimal("200.20"))));
 
         // when
         var accounts = accountRepository.findByCustomerId(99);

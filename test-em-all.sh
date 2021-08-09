@@ -24,9 +24,9 @@ function assertCurl() {
   local httpCode="${result:(-3)}"
   RESPONSE='' && (( ${#result} > 3 )) && RESPONSE="${result%???}"
 
-  if [[ "$httpCode" = "$expectedHttpCode" ]]
+  if [[ "$httpCode" == "$expectedHttpCode" ]]
   then
-    if [[ "$httpCode" = "200" ]]
+    if [[ "$httpCode" == "200" ]]
     then
       echo "Test OK (HTTP Code: $httpCode)"
     else
@@ -46,7 +46,7 @@ function assertEqual() {
   local expected=$1
   local actual=$2
 
-  if [[ "$actual" = "$expected" ]]
+  if [[ "$actual" == "$expected" ]]
   then
     echo "Test OK (actual value: $actual)"
     return 0

@@ -19,13 +19,13 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Data
 public class CustomerEntity {
 
-  @Id
-  @GeneratedValue(strategy = IDENTITY)
-  private int id;
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private int id;
 
-  private String firstName;
-  private String lastName;
+    private String firstName;
+    private String lastName;
 
-  private BigDecimal balance;
+    private BigDecimal balance;
 
 }
